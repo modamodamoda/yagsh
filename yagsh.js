@@ -31,7 +31,7 @@ class yagsh {
     handler._stateID = this.handlers.length - 1;
     if(handler.componentWillUnmount !== undefined) handler.__yagsh_componentWillUnmount = handler.componentWillUnmount;
     var _self = this;
-    this.handlers.componentWillUnmount = function() {
+    handler.componentWillUnmount = function() {
       _self.unmount(this);
       if(this.__yagsh_componentWillUnmount !== undefined) this.__yagsh_componentWillUnmount();
     }
