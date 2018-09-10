@@ -5,28 +5,29 @@ The problem: modifying multiple components' states at once is a bitch. Especiall
 
 The solution: a class where you can add components ("handlers") and modify all of their states easily, whilst also tracking which components are mounted.
 
-(1) The handler is added to the class, listening for state changes
-(2) The handler's unmount event is reassigned and a new one is created which makes sure it unmounts from the class, and also calls the existing one
-(3) The class has a setState function which modifies the state of all components.
+1. The handler is added to the class, listening for state changes
+2. The handler's unmount event is reassigned and a new one is created which makes sure it unmounts from the class, and also calls the existing one
+3. The class has a setState function which modifies the state of all components.
 
-Perhaps this is not how Facebook would want to deal with this problem, favouring something like Redux. But alas, in many cases, this is much simpler
-for me, as an old school programmer. 
+Perhaps this is not how Facebook would want to deal with this problem, favouring something like Redux. But alas, in many cases, this is much simpler for me, as an old school programmer. 
 
 A decent use of this is extending a class with this yagsh, so it has the handler functions and can talk to the handlers. 
 
 Functions
 =========
 
-mount(handler) - run this when your component mounts, simply with "this"
+`mount(handler)` - run this when your component mounts, simply with "this." This will assign the component to the object, and also set the state of the component to whatever has been set in the object using its setState function
 
-unmount(handler) - you don't need to run this, but if you want to unsubscribe your component from the class, run with "this"
+`unmount(handler)` - you don't need to run this, but if you want to unsubscribe your component from the class, run with "this"
 
-each(callback) - you can iterate through each handler listening to the class with "each," it will simply call the callback with each handler.
+`each(callback)` - you can iterate through each handler listening to the class with "each," it will simply call the callback with each handler.
+
+`setState(state)` - this sets the state to all attached handlers, and also saves it in the object's store for carrying it to new componetns
 
 Example usage
 =============
 
-import yagsh from 'yagsh';
+`import yagsh from 'yagsh';
 
 var myStateHandler = new yagsh();
 
@@ -58,4 +59,4 @@ class MyComponent2 extends Component {
   
   ...
 
-}
+}`
