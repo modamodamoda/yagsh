@@ -27,36 +27,38 @@ Functions
 Example usage
 =============
 
-`import yagsh from 'yagsh';
+```
+  import yagsh from 'yagsh';
 
-var myStateHandler = new yagsh();
+  var myStateHandler = new yagsh();
 
-class MyComponent extends Component {
+  class MyComponent extends Component {
 
-  componentWillMount() {
-    myStateHandler.mount(this); // nothing more needed
+    componentWillMount() {
+      myStateHandler.mount(this); // nothing more needed
+    }
+
+    doSomething() {
+      myStateHandler.setState( { test: 'test' } ); // both mycomponent2 and mycomponent's state will be set
+    }
+
+    ...
+
   }
-  
-  doSomething() {
-    myStateHandler.setState( { test: 'test' } ); // both mycomponent2 and mycomponent's state will be set
-  }
-  
-  ...
-  
-}
 
-class MyComponent2 extends Component {
+  class MyComponent2 extends Component {
 
-  componentWillMount() {
-    myStateHandler.mount(this); // nothing more needed
-  }
-  
-  doSomething() {
-    myStateHandler.each( function(handler) {
-      handler._something = 'hi'; // both mycomponent2 and mycomponent will be affected.
-    } );
-  }
-  
-  ...
+    componentWillMount() {
+      myStateHandler.mount(this); // nothing more needed
+    }
 
-}`
+    doSomething() {
+      myStateHandler.each( function(handler) {
+        handler._something = 'hi'; // both mycomponent2 and mycomponent will be affected.
+      } );
+    }
+
+    ...
+
+  }
+```
