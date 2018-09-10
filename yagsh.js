@@ -24,7 +24,7 @@ class yagsh {
   
   handlers = [];
   
-  listeners = {};
+  store = {};
   
   mount(handler) {
     this.handlers.push(handler);
@@ -35,6 +35,7 @@ class yagsh {
       _self.unmount(this);
       if(this.__yagsh_componentWillUnmount !== undefined) this.__yagsh_componentWillUnmount();
     }
+    handler.setState(this.store);
   }
   
   unmount(handler) {
@@ -42,6 +43,7 @@ class yagsh {
   }
   
   setState(data) {
+    Object.assign(this.store, data);
     for(let i = 0; i < this.handlers.length; i++) {
       this.handlers[i].setState(data);
     }
